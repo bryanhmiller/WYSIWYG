@@ -121,7 +121,7 @@ function presidentialEvent() {
 function bindingToBio() {
   //  getElementById no longer working, because id is generated dynamically.
   var additionalBio = document.getElementById("First-President");
-  additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
+  additionalBio.innerHTML += "<section>" + presidentialInput.value + "</section>";
 }
 
 function whatIsThis() {
