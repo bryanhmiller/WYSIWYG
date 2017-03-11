@@ -96,7 +96,7 @@ function populateDemPresidents() {
 // elements however you like.
       presidentialInfo += `<person class="col-sm-6 col-md-3 thumbnail">`;
       presidentialInfo += `<header>${currentPresident.name}, ${currentPresident.title}</header>`;
-      presidentialInfo += `<section id="president-bio">${currentPresident.bio} <img src="${currentPresident.image}"/></section>`;
+      presidentialInfo += `<section id="${currentPresident.title}">${currentPresident.bio} <img src="${currentPresident.image}"/></section>`;
       presidentialInfo += `<footer>${currentPresident.lifespan.birth} to ${currentPresident.lifespan.death}</footer>`;
       presidentialInfo += `</person>`;
   }
@@ -119,10 +119,17 @@ function presidentialEvent() {
 // the person's biography should be immediately bound to what you are typing, letter by 
 // letter.
 function bindingToBio() {
-  var additionalBio = document.getElementById("president-bio");
-  additionalBio.innerHTML = presidentialInput.value; 
+  //  getElementById no longer working, because id is generated dynamically.
+  var additionalBio = document.getElementById("First-President");
+  additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
+}
+
+function whatIsThis() {
+  console.log(event.target);
 }
 
 populateDemPresidents();
 
 presidentialOutput.addEventListener("click", presidentialEvent);
+presidentialInput.addEventListener("click", populateDemPresidents);
+document.body.addEventListener("click", whatIsThis);
