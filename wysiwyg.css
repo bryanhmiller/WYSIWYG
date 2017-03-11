@@ -4,11 +4,13 @@ body {
 
 img {
 	display: block;
+	margin: 5px auto;
 }
 
 .thumbnail {
 	min-height: 525px;
 	margin: 10px 50px;
+	box-shadow: 0 0 50px #fff;
 }
 
 /*5. For every even numbered element, have a light yellow background.*/
@@ -24,4 +26,10 @@ img {
 /*8. When you click on one of the person elements, a dotted border should appear around it.*/
 .dotted-border {
 	border: 2px dotted blue;
+}
+
+input:focus {
+	margin: 10px;
+	background: blue;
+	color: white;
 }
