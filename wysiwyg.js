@@ -96,7 +96,9 @@ function populateDemPresidents() {
 // elements however you like.
       presidentialInfo += `<person class="col-sm-6 col-md-3 thumbnail">`;
       presidentialInfo += `<header>${currentPresident.name}, ${currentPresident.title}</header>`;
-      presidentialInfo += `<section id="${currentPresident.title}">${currentPresident.bio} <img src="${currentPresident.image}"/></section>`;
+      presidentialInfo += `<section>${currentPresident.bio}</section>`;
+      presidentialInfo += `<section id="${i}"></section>`;
+      presidentialInfo += `<img src="${currentPresident.image}"/>`;      
       presidentialInfo += `<footer>${currentPresident.lifespan.birth} to ${currentPresident.lifespan.death}</footer>`;
       presidentialInfo += `</person>`;
   }
@@ -120,16 +122,23 @@ function presidentialEvent() {
 // letter.
 function bindingToBio() {
   //  getElementById no longer working, because id is generated dynamically.
-  var additionalBio = document.getElementById("First-President");
-  additionalBio.innerHTML += "<section>" + presidentialInput.value + "</section>";
+  var additionalBio = document.getElementById("0");
+  additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
 }
 
 function whatIsThis() {
-  console.log(event.target);
+  console.log("What is this",event.target);
+}
+
+// 11. When you press the enter/return key when typing in the input field, then the content 
+// of the input field should immediately be blank.
+function clearInput() {
+  presidentialInput.blur();
+  target.classList.remove("dotted-border");
 }
 
 populateDemPresidents();
 
 presidentialOutput.addEventListener("click", presidentialEvent);
-presidentialInput.addEventListener("click", populateDemPresidents);
+presidentialInput.addEventListener("click", clearInput);
 document.body.addEventListener("click", whatIsThis);
