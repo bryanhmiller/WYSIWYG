@@ -94,27 +94,30 @@ function populateDemPresidents() {
 
 // 4. Create a DOM element for each of the objects inside the container. Style your person 
 // elements however you like.
-      presidentialInfo += `<person class="col-sm-6 col-md-3 thumbnail">`;
-      presidentialInfo += `<header>${currentPresident.name}, ${currentPresident.title}</header>`;
-      presidentialInfo += `<section>${currentPresident.bio}</section>`;
-      presidentialInfo += `<section id="${i}"></section>`;
-      presidentialInfo += `<img src="${currentPresident.image}"/>`;      
-      presidentialInfo += `<footer>${currentPresident.lifespan.birth} to ${currentPresident.lifespan.death}</footer>`;
+      presidentialInfo += `<person class="col-sm-6 col-md-3 thumbnail president-${i}">`;
+      presidentialInfo += `<header class="president-${i}">${currentPresident.name}, ${currentPresident.title}</header>`;
+      presidentialInfo += `<section class="president-${i}">${currentPresident.bio}</section>`;
+      presidentialInfo += `<section class="president-${i}" id="presidentialBioAddendum-${i}"></section>`;
+      presidentialInfo += `<img class="president-${i}" src="${currentPresident.image}"/>`;      
+      presidentialInfo += `<footer class="president-${i}">${currentPresident.lifespan.birth} to ${currentPresident.lifespan.death}</footer>`;
       presidentialInfo += `</person>`;
   }
   presidentialOutput.innerHTML = presidentialInfo;
 }
 
-function presidentialEvent() {
+function presidentialEvent(event) {
+
 // 8. When you click on one of the person elements, a dotted border should appear around it.
+  console.log("presidentialEvent", event.target);
   if (event.target.tagName === "PERSON") {
     event.target.classList.add("dotted-border");
-
+  } else if (event.target.className === "president-0") {
+    event.target.parentNode.classList.add("dotted-border");
+  }
 // 9. When you click on one of the person elements, the text input should immediately gain 
 // focus so that you can start typing.
     presidentialInput.focus();
     presidentialInput.addEventListener("keyup", bindingToBio);
-  } 
 }
 
 // 10. When there is a highlighted person element, and you begin typing in the input box, 
@@ -122,12 +125,12 @@ function presidentialEvent() {
 // letter.
 function bindingToBio() {
   //  getElementById no longer working, because id is generated dynamically.
-  var additionalBio = document.getElementById("0");
+  var additionalBio = document.getElementById("presidentialBioAddendum-0");
   additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
 }
 
-function whatIsThis() {
-  console.log("What is this",event.target);
+function whatIsThis(event) {
+  console.log("What is this", event);
 }
 
 // 11. When you press the enter/return key when typing in the input field, then the content 
