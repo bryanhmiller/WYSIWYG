@@ -106,17 +106,20 @@ function populateDemPresidents() {
 }
 
 function presidentialEvent(event) {
-
+  for ( q = 0; q < presidentialArray.length; q++) {
 // 8. When you click on one of the person elements, a dotted border should appear around it.
-  console.log("presidentialEvent", event.target);
-  if (event.target.tagName === "PERSON") {
-    event.target.classList.add("dotted-border");
-  } else if (event.target.className === "president-0") {
-    event.target.parentNode.classList.add("dotted-border");
+    if (event.target.tagName === "PERSON" && event.target.className === "president-" + q) {
+      event.target.classList.toggle("dotted-border");
+    } else if (event.target.className === "president-" + q) {
+      event.target.parentNode.classList.toggle("dotted-border");
+    }
   }
 // 9. When you click on one of the person elements, the text input should immediately gain 
 // focus so that you can start typing.
     presidentialInput.focus();
+    var presidentLink = event.target.className;
+    console.log("presidentLink", presidentLink);
+    return presidentLink;
     presidentialInput.addEventListener("keyup", bindingToBio);
 }
 
@@ -124,13 +127,17 @@ function presidentialEvent(event) {
 // the person's biography should be immediately bound to what you are typing, letter by 
 // letter.
 function bindingToBio() {
-  //  getElementById no longer working, because id is generated dynamically.
-  var additionalBio = document.getElementById("presidentialBioAddendum-0");
-  additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
+  console.log("presidentLink inside bindingToBio", presidentLink);
+  for (u = 0; u < presidentialArray.length; u++) {
+    if (presidentLink === "president-" + u) {
+      var additionalBio = document.getElementById("presidentialBioAddendum-" + u);
+      additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
+    }  
+  }
 }
 
 function whatIsThis(event) {
-  console.log("What is this", event);
+  console.log("event", event);
 }
 
 // 11. When you press the enter/return key when typing in the input field, then the content 
