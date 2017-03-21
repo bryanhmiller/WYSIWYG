@@ -112,7 +112,7 @@ function presidentialEvent(event) {
     if (event.target.tagName === "PERSON" && event.target.className === "president-" + q) {
       event.target.classList.toggle("dotted-border");
     } else if (event.target.className === "president-" + q) {
-      event.target.parentNode.classList.toggle("dotted-border");
+      event.target.parentNode.classList.add("dotted-border");
     }
   }
 // 9. When you click on one of the person elements, the text input should immediately gain 
@@ -127,29 +127,33 @@ function presidentialEvent(event) {
 // 10. When there is a highlighted person element, and you begin typing in the input box, 
 // the person's biography should be immediately bound to what you are typing, letter by 
 // letter.
-function bindingToBio() {
+function bindingToBio(event) {
   console.log("presidentLink inside bindingToBio", presidentLink);
   for (u = 0; u < presidentialArray.length; u++) {
-    if (presidentLink === "president-" + u) {
+    if (event.keyCode === 13) {
+        clearInput();
+    } else if (presidentLink === "president-" + u) {
       var additionalBio = document.getElementById("presidentialBioAddendum-" + u);
       additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
     }  
   }
 }
 
-function whatIsThis(event) {
-  console.log("event", event);
-}
+// function whatIsThis(event) {
+//   console.log("event", event);
+// }
 
 // 11. When you press the enter/return key when typing in the input field, then the content 
 // of the input field should immediately be blank.
-function clearInput() {
+function clearInput(event) {
   presidentialInput.blur();
-  target.classList.remove("dotted-border");
+  presidentialInput.value = "";
+  event.target.classList.remove("dotted-border");
+
 }
 
 populateDemPresidents();
 
 presidentialOutput.addEventListener("click", presidentialEvent);
 presidentialInput.addEventListener("click", clearInput);
-document.body.addEventListener("click", whatIsThis);
+// document.body.addEventListener("click", whatIsThis);
