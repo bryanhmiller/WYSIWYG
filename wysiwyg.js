@@ -1,5 +1,6 @@
 var presidentialInput = document.getElementById("text-input");
 var presidentialOutput = document.getElementById("presidential-container");
+var presidentLink;
 
 // 1. Create an array of objects that represents famous people (see structure below).
 //     Object structure
@@ -117,9 +118,9 @@ function presidentialEvent(event) {
 // 9. When you click on one of the person elements, the text input should immediately gain 
 // focus so that you can start typing.
     presidentialInput.focus();
-    var presidentLink = event.target.className;
     console.log("presidentLink", presidentLink);
-    return presidentLink;
+    presidentLink = event.target.className;
+    // return presidentLink;
     presidentialInput.addEventListener("keyup", bindingToBio);
 }
 
