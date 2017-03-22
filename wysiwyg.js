@@ -1,6 +1,8 @@
 var presidentialInput = document.getElementById("text-input");
 var presidentialOutput = document.getElementById("presidential-container");
-var presidentLink;
+var presidentialInfo = "";
+var currentPresident;
+var presidentLink = "";
 
 // 1. Create an array of objects that represents famous people (see structure below).
 //     Object structure
@@ -70,8 +72,6 @@ var presidentialArray = [
 }
 ];
 
-var presidentialInfo = "";
-var currentPresident;
 
 // 7. Each element's DOM structure should be as shown below.
 //     Sample Person Element & Children
@@ -110,7 +110,7 @@ function presidentialEvent(event) {
   for ( q = 0; q < presidentialArray.length; q++) {
 // 8. When you click on one of the person elements, a dotted border should appear around it.
     if (event.target.tagName === "PERSON" && event.target.className === "president-" + q) {
-      event.target.classList.toggle("dotted-border");
+      event.target.classList.add("dotted-border");
     } else if (event.target.className === "president-" + q) {
       event.target.parentNode.classList.add("dotted-border");
     }
@@ -118,9 +118,7 @@ function presidentialEvent(event) {
 // 9. When you click on one of the person elements, the text input should immediately gain 
 // focus so that you can start typing.
     presidentialInput.focus();
-    console.log("presidentLink", presidentLink);
     presidentLink = event.target.className;
-    // return presidentLink;
     presidentialInput.addEventListener("keyup", bindingToBio);
 }
 
@@ -128,10 +126,17 @@ function presidentialEvent(event) {
 // the person's biography should be immediately bound to what you are typing, letter by 
 // letter.
 function bindingToBio(event) {
-  console.log("presidentLink inside bindingToBio", presidentLink);
   for (u = 0; u < presidentialArray.length; u++) {
     if (event.keyCode === 13) {
-        clearInput();
+      if (presidentLink === "president-" + u) {
+        var removeDots = document.getElementsByClassName(presidentLink);  
+        for (var x = 0; x < removeDots.length; x++) {
+          if (removeDots[x].tagName === "PERSON") {
+            removeDots[x].classList.remove("dotted-border");
+          }
+        }
+      }
+      clearInput();
     } else if (presidentLink === "president-" + u) {
       var additionalBio = document.getElementById("presidentialBioAddendum-" + u);
       additionalBio.innerHTML = "<section>" + presidentialInput.value + "</section>";
@@ -139,21 +144,13 @@ function bindingToBio(event) {
   }
 }
 
-// function whatIsThis(event) {
-//   console.log("event", event);
-// }
-
 // 11. When you press the enter/return key when typing in the input field, then the content 
 // of the input field should immediately be blank.
-function clearInput(event) {
+function clearInput() {
   presidentialInput.blur();
   presidentialInput.value = "";
-  event.target.classList.remove("dotted-border");
-
 }
 
 populateDemPresidents();
 
 presidentialOutput.addEventListener("click", presidentialEvent);
-presidentialInput.addEventListener("click", clearInput);
-// document.body.addEventListener("click", whatIsThis);
